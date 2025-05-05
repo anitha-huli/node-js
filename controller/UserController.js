@@ -82,3 +82,15 @@ exports.login = async (req, res) => {
       return res.status(500).json({ message: "Error during login" });
     }
   };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    // Retrieve all users from the database
+    const users = await User.find({}, { password: 0 }); // Exclude the password field from the response
+
+    return res.status(200).json({ users });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Error fetching users" });
+  }
+};
